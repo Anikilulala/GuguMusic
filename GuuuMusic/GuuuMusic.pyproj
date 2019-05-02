@@ -21,7 +21,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cgi-bin\up.py" />
     <Compile Include="GuuuMusic.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cgi-bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
