@@ -62,3 +62,6 @@ def index():
             'duration': duration
         })
     return json.jsonify(result)
+
+if __name__=='__main__':
+    app.run()
