@@ -1,6 +1,7 @@
 import os
 import uuid
 import glob
+import uuid
 from mutagen.mp3 import MP3
 from flask import Flask, flash, json, redirect, url_for
 from flask import request
@@ -20,6 +21,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def uuid_filename():
+    return str(uuid.uuid1())+".mp3"
+
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -36,7 +41,7 @@ def upload_file():
             # submit an empty part without filename
 
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = secure_filename(uuid_filename())
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))            
             else:
                 flash('Only support MP3')
