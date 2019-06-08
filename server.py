@@ -28,19 +28,21 @@ def upload_file():
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('static', filename="upload/" + filename))
-        else:
-            flash('Only support MP3')
-            return redirect(request.url)
+        for file in request.files.getlist('file'):
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            # if user does not select file, browser also
+            # submit an empty part without filename
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))            
+            else:
+                flash('Only support MP3')
+                return redirect(request.url)
+        flash('Done')
+        return redirect(request.url)
 
     return render_template('upload.html')
 
@@ -63,5 +65,5 @@ def index():
         })
     return json.jsonify(result)
 
-if __name__=='__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000",debug=True)
