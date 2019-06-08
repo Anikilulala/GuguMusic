@@ -13,7 +13,7 @@ ALLOWED_EXTENSIONS = {'mp3'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 512 * 1024 * 1024
 app.config['SECRET_KEY'] = uuid.uuid4().hex
 
 
@@ -22,7 +22,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def uuid_filename():
-    return str(uuid.uuid1())+".mp3"
+    return str(uuid.uuid4())+".mp3"
 
 
 
